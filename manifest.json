@@ -1,0 +1,25 @@
+{
+  "name": "Ticket Converter",
+  "version": "0.1.0",
+  "description": "Converts Zendesk tickets into GitHub issues.",
+  "icons": { "16": "icon16.png",
+             "32": "icon32.png",
+             "48": "icon48.png",
+            "128": "icon128.png" },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    { "matches": ["https://pspdfkit.zendesk.com/*"], "js": ["content_script.js"] }
+  ],
+  "permissions": [
+    "declarativeContent",
+    "activeTab",
+    "https://github.com/PSPDFKit/PSPDFKit/issues/new"
+  ],
+  "page_action": {
+      "default_title": "Convert Ticket"
+  },
+  "manifest_version": 2
+}
