@@ -21,20 +21,20 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.pageAction.onClicked.addListener(tab => {
   chrome.tabs.sendMessage(tab.id, "GetTicketContent", content => {
     if (content != null) {
-      let textContent = `Email: ${content.email}`;
+      let textContent = `**Email:** ${content.email}`;
 
       if (content.licenseID != null) {
-        textContent = `License ID: ${content.licenseID}\\n${textContent}`;
+        textContent = `**License ID:** ${content.licenseID}\\n${textContent}`;
       }
 
       if (content.value != null) {
-        textContent += `\\nCustomer Value: ${content.value}`;
+        textContent += `\\n**Customer Value:** ${content.value}`;
       }
 
       let additionalLabels = [];
 
       if (content.version != null) {
-        textContent += `\\nLast Downloaded Version: ${content.version}`;
+        textContent += `\\n**Last Downloaded Version:** ${content.version}`;
 
         if (content.version.indexOf('iOS') != -1) {
           additionalLabels.push('iOS');
@@ -45,7 +45,7 @@ chrome.pageAction.onClicked.addListener(tab => {
         }
       }
 
-      textContent += `\\nZendesk Ticket: ${tab.url}\\n\\n`;
+      textContent += `\\n**Zendesk Ticket:** ${tab.url}\\n\\n---\\n\\n`;
 
       chrome.tabs.create({ "url": "https://github.com/PSPDFKit/PSPDFKit/issues/new" }, new_tab => {
         chrome.tabs.executeScript(new_tab.id, { "code": `
