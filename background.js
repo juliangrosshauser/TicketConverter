@@ -49,12 +49,14 @@ chrome.pageAction.onClicked.addListener(tab => {
 
       chrome.tabs.create({ "url": "https://github.com/PSPDFKit/PSPDFKit/issues/new" }, new_tab => {
         chrome.tabs.executeScript(new_tab.id, { "code": `
-          document.getElementById('issue_body').value = "${textContent}";
-          document.querySelector('[data-hotkey="l"]').click();
-          document.querySelector('input[value="customer-issue"]').click();
-          ${addLabel(additionalLabels[0])}
-          ${addLabel(additionalLabels[1])}
-          document.querySelector('[data-hotkey="l"]').click();
+          window.onload = () => {
+            document.getElementById('issue_body').value = "${textContent}";
+            document.querySelector('[data-hotkey="l"]').click();
+            document.querySelector('input[value="customer-issue"]').click();
+            ${addLabel(additionalLabels[0])}
+            ${addLabel(additionalLabels[1])}
+            document.querySelector('[data-hotkey="l"]').click();
+          };
         `});
       });
     }
