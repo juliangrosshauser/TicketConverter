@@ -45,7 +45,14 @@ chrome.pageAction.onClicked.addListener(tab => {
         }
       }
 
-      textContent += `\\n**Zendesk Ticket:** ${tab.url}\\n\\n---\\n\\n`;
+      textContent += `\\n**Zendesk Ticket:** ${tab.url}`;
+      textContent += '\\n\\n';
+      textContent += '---';
+      textContent += '\\n\\n\\n\\n';
+      textContent += '# Details';
+      textContent += '\\n\\n\\n\\n';
+      textContent += '# Acceptance Criteria';
+      textContent += '\\n\\n';
 
       chrome.tabs.create({ "url": "https://github.com/PSPDFKit/PSPDFKit/issues/new" }, new_tab => {
         chrome.tabs.executeScript(new_tab.id, { "code": `
